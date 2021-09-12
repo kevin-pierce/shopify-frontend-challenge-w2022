@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import "./spacestagram-view.scss"
+
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 
 const SpacestagramView = () => {
@@ -42,13 +44,16 @@ const SpacestagramView = () => {
     }
 
     return (
-        <div className="wrapper">
+        <div className="spacestagram-view-wrapper">
             {
-                hasLoaded && imgMetaData.map((img) => {
+                hasLoaded && imgMetaData ? 
+                imgMetaData.map((img) => {
                     return (
                         <SpacestagramCard key={img.identifier} imageData={img}/>
                     )
-                })
+                }) 
+                :
+                <img className="loader" src="https://www.freeiconspng.com/uploads/rocket-ship-png-1.png" width="100" alt="Best Free Rocket Ship Png Image" />
             }
         </div>
     )
