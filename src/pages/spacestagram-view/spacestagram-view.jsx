@@ -4,36 +4,50 @@ import axios from 'axios';
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 
 const SpacestagramView = () => {
-    const [imgData, setImgData] = useState([])
+    const [imgMetaData, setMetaImgData] = useState([])
     const [hasLoaded, setHasLoaded] = useState(false)
 
     useEffect(() => {
-        getEPICImgs()
+        getEPICImgMetaData()
     }, [])
 
-    const getEPICImgs = () => {
-        axios({
+    const getEPICImgMetaData = async () => {
+        await axios({
             method: 'get',
             url: `https://epic.gsfc.nasa.gov/api/natural/images?api_key=${process.env.REACT_APP_NASA_KEY}`,
         })
         .then((response) => {
-            console.log(response)
-            setImgData(response.data)
-            setHasLoaded(true)
+            setImgsArr(response.data)
         })
         .catch((error) => {
             console.log(error);
         });;
     }
 
+    const setImgsArr = (imageArr) => {
+        let newImgArr = imageArr.map((imgData) => {
+            let splitDate = imgData.date.split(' ')[0].split('-')
+            let year = splitDate[0]
+            let month = splitDate[1]
+            let day = splitDate[2]
+
+            let imgUrl = `https://epic.gsfc.nasa.gov/archive/natural/${year}/${month}/${day}/jpg/${imgData.image}.jpg`
+            console.log(imgUrl)
+
+            imgData["url"] = imgUrl
+            return imgData
+        })
+        setMetaImgData(newImgArr)
+        setHasLoaded(true)
+    }
+
     return (
-        <div className="lol">
+        <div className="wrapper">
             {
-                hasLoaded && imgData.map((img) => {
+                hasLoaded && imgMetaData.map((img) => {
                     return (
-                        <SpacestagramCard image={img}/>
+                        <SpacestagramCard key={img.identifier} imageData={img}/>
                     )
-                    
                 })
             }
         </div>
