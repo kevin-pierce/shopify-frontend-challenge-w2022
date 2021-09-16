@@ -2,6 +2,10 @@
     .card {
         max-width:600px;
 
+        .interactions-row {
+            display:flex;
+        }
+
         .card-img-top {
             width:566px;
 
@@ -10,5 +14,27 @@
         .caption {
             font-weight: 700;
         }
+
+        .share-dropdown-content {
+            img {
+                margin-right:8px;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        padding: 8px !important
+    }
+
+    .dropdown-item {
+        padding: 4px !important;
+    }
+
+    .dropdown-toggle.btn-primary {
+        background-color: none !important;
+    }
+
+    .dropdown-toggle::after {
+        display:none;
     }
 }

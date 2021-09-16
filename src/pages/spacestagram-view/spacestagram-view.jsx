@@ -53,7 +53,7 @@ const SpacestagramView = () => {
                     )
                 }) 
                 :
-                <img className="loader" src="https://www.freeiconspng.com/uploads/rocket-ship-png-1.png" width="100" alt="Best Free Rocket Ship Png Image" />
+                <img className="loader" src="https://www.freeiconspng.com/uploads/rocket-ship-png-1.png" width="100" alt="Loading Icon" />
             }
         </div>
     )

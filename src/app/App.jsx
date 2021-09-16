@@ -1,9 +1,11 @@
 import SpacestagramView from "../pages/spacestagram-view/spacestagram-view";
 
+import "./App.scss"
+
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app-wrapper">
+      <header className="app-header">
         <SpacestagramView/>
       </header>
     </div>
