@@ -11,7 +11,6 @@ import { Toast, ToastContainer } from "react-bootstrap"
 const SpacestagramView = () => {
     const [imgMetaData, setMetaImgData] = useState([])
     const [hasLoaded, setHasLoaded] = useState(false)
-    //const [showLikedToast, setShowLikedToast] = useState(false)
     const [toasts, setToasts] = useState([])
 
     useEffect(() => {
@@ -22,7 +21,7 @@ const SpacestagramView = () => {
     useEffect(() => {
         if (toasts.length > 0) {
             window.setTimeout(() => {
-                setToasts(toasts.slice(1))
+                setToasts(toasts => (toasts.slice(1)))
             }, 3000)
         }
     }, [toasts])
@@ -75,9 +74,9 @@ const SpacestagramView = () => {
             }
             <ToastContainer style={{position:"fixed", bottom:"50px", right:"50px"}}>
                 {
-                    toasts && toasts.map((toastMsg) => {
+                    toasts && toasts.map((toastMsg, idx) => {
                         return (
-                            <Toast>
+                            <Toast key={idx}>
                                 <Toast.Header>
                                     <strong className="me-auto">{toastMsg}</strong>
                                 </Toast.Header>
