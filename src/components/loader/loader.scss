@@ -1,0 +1,21 @@
+.loading-wrapper {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40vh;
+    .loader {
+        animation: MoveUpDown 1s ease-in-out infinite ;
+        margin-bottom: 24px;
+    }
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-100px);
+        
+    }
+  }

@@ -5,6 +5,7 @@ import "./spacestagram-view.scss"
 import LoadingIcon from "../../assets/rocket-loader.svg"
 
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
+import Loader from '../../components/loader/loader';
 
 const SpacestagramView = () => {
     const [imgMetaData, setMetaImgData] = useState([])
@@ -54,10 +55,7 @@ const SpacestagramView = () => {
                     )
                 }) 
                 :
-                <div className="loading-wrapper">
-                <img className="loader" src={LoadingIcon} width="100" alt="Loading Icon" />
-                <h4>Scouring space for images</h4>
-                </div>
+                <Loader/>
             }
         </div>
     )
