@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Card, Dropdown } from 'react-bootstrap'
 
 import LinkIcon from "../../assets/link-icon.svg"
@@ -9,27 +9,45 @@ import "./spacestagram-card.scss"
 
 
 const SpacestagramCard = ({imageData}) => {
-
     const [likedState, setLikedState] = useState(false)
 
+    // Load liked images from localStorage
+    useEffect(() => {
+        const imgLikedState = window.localStorage.getItem(`${imageData.identifier}-liked-state`)
+
+        if (imgLikedState != null) {
+            if (imgLikedState == "true") {
+                console.log(imgLikedState)
+                setLikedState(true)
+            }
+        }
+    }, [])
+
+    // onClick handler for likes (Only stores liked images)
     const handleLike = () => {
+        if (!likedState) {
+            window.localStorage.setItem(`${imageData.identifier}-liked-state`, !likedState)
+        }
+        else {
+            window.localStorage.removeItem(`${imageData.identifier}-liked-state`)
+        }
         setLikedState(!likedState)
     }
 
+    // Save image link to clipboard
     const copyToClipboard = (e) => {
         navigator.clipboard.writeText(`${imageData.url}`)
     }
 
-    console.log(imageData)
     return (
         <div className="spacestagram-card-wrapper">
             <Card>
                 <Card.Body>
                 <Card.Img variant="top" src={imageData.url}/>
                 <div className="interactions-row">
-                    <Button onClick={handleLike} variant="none">
+                    <Button onClick={handleLike} variant="none" className="like-btn">
                         {
-                            likedState ? 
+                            likedState == true ? 
                             (<img src={LikedIcon}/>) 
                             : 
                             (<img src={UnlikedIcon}/>)
@@ -37,7 +55,7 @@ const SpacestagramCard = ({imageData}) => {
                         
                     </Button>
                     <Dropdown>
-                        <Dropdown.Toggle variant="none">
+                        <Dropdown.Toggle variant="none" className="share-btn">
                             <img width="32" alt="Ei-share-apple" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/512px-Ei-share-apple.svg.png"></img>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>

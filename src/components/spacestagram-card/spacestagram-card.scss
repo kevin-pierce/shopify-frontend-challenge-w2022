@@ -4,6 +4,14 @@
 
         .interactions-row {
             display:flex;
+
+            .like-btn {
+                padding: 6px 10px 6px 10px;
+            }
+
+            .share-btn {
+                padding: 6px;
+            }
         }
 
         .card-img-top {

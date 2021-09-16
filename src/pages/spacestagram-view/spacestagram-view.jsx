@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import "./spacestagram-view.scss"
+import LoadingIcon from "../../assets/rocket-loader.svg"
 
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 
@@ -53,7 +54,10 @@ const SpacestagramView = () => {
                     )
                 }) 
                 :
-                <img className="loader" src="https://www.freeiconspng.com/uploads/rocket-ship-png-1.png" width="100" alt="Loading Icon" />
+                <div className="loading-wrapper">
+                <img className="loader" src={LoadingIcon} width="100" alt="Loading Icon" />
+                <h4>Scouring space for images</h4>
+                </div>
             }
         </div>
     )

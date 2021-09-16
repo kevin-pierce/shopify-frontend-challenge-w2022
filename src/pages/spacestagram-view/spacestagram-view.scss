@@ -1,16 +1,28 @@
 .spacestagram-view-wrapper {
-    margin:auto;
-    .loader {
-        animation: MoveUpDown 1s ease-in-out infinite ;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .loading-wrapper {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40vh;
+        .loader {
+            animation: MoveUpDown 1s ease-in-out infinite ;
+            margin-bottom: 24px;
+        }
     }
+    
 }
 
 @keyframes MoveUpDown {
     0%, 100% {
-      transform: rotate(45deg) translateY(0) translateX(100px);
+      transform: translateY(0);
     }
     50% {
-        transform: rotate(45deg) translateY(-100px);
+        transform: translateY(-100px);
         
     }
   }
