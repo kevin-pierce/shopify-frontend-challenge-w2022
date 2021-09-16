@@ -14,7 +14,7 @@ const Loader = () => {
 
     return (
         <div className="loading-wrapper">
-            <img className="loader" src={LoadingIcon} width="100" alt="Loading Icon" />
+            <img className="loader" src={LoadingIcon} height="100" alt="Loading Icon" />
             <h4>{randMsg}</h4>
         </div>
     )

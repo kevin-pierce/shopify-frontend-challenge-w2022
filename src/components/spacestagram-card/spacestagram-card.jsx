@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, Dropdown } from 'react-bootstrap'
+import { Button, Card, Dropdown, Toast, ToastContainer } from 'react-bootstrap'
 
+// Icons
 import LinkIcon from "../../assets/link-icon.svg"
 import LikedIcon from "../../assets/heart-full-icon.svg"
 import UnlikedIcon from "../../assets/heart-empty-icon.svg"
@@ -8,7 +9,7 @@ import UnlikedIcon from "../../assets/heart-empty-icon.svg"
 import "./spacestagram-card.scss"
 
 
-const SpacestagramCard = ({imageData}) => {
+const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
     const [likedState, setLikedState] = useState(false)
 
     // Load liked images from localStorage
@@ -27,15 +28,18 @@ const SpacestagramCard = ({imageData}) => {
     const handleLike = () => {
         if (!likedState) {
             window.localStorage.setItem(`${imageData.identifier}-liked-state`, !likedState)
+            onPostInteractionHandler("Liked post")
         }
         else {
             window.localStorage.removeItem(`${imageData.identifier}-liked-state`)
+            onPostInteractionHandler("Unliked post")
         }
         setLikedState(!likedState)
     }
 
     // Save image link to clipboard
     const copyToClipboard = (e) => {
+        onPostInteractionHandler("Link copied to clipboard")
         navigator.clipboard.writeText(`${imageData.url}`)
     }
 
@@ -81,6 +85,7 @@ const SpacestagramCard = ({imageData}) => {
                 
                 </Card.Body>
             </Card>
+            
         </div>
     )
     

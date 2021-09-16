@@ -6,14 +6,26 @@ import LoadingIcon from "../../assets/rocket-loader.svg"
 
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 import Loader from '../../components/loader/loader';
+import { Toast, ToastContainer } from "react-bootstrap"
 
 const SpacestagramView = () => {
     const [imgMetaData, setMetaImgData] = useState([])
     const [hasLoaded, setHasLoaded] = useState(false)
+    //const [showLikedToast, setShowLikedToast] = useState(false)
+    const [toasts, setToasts] = useState([])
 
     useEffect(() => {
         getEPICImgMetaData()
     }, [])
+
+    // Auto remove toast messages after 3 seconds
+    useEffect(() => {
+        if (toasts.length > 0) {
+            window.setTimeout(() => {
+                setToasts(toasts.slice(1))
+            }, 3000)
+        }
+    }, [toasts])
 
     const getEPICImgMetaData = async () => {
         await axios({
@@ -45,18 +57,35 @@ const SpacestagramView = () => {
         setHasLoaded(true)
     }
 
+    const onPostInteractionHandler = (message) => {
+        setToasts([...toasts, message])
+    }
+
     return (
         <div className="spacestagram-view-wrapper">
             {
                 hasLoaded && imgMetaData ? 
                 imgMetaData.map((img) => {
                     return (
-                        <SpacestagramCard key={img.identifier} imageData={img}/>
+                        <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
                     )
                 }) 
                 :
                 <Loader/>
             }
+            <ToastContainer style={{position:"fixed", bottom:"50px", right:"50px"}}>
+                {
+                    toasts && toasts.map((toastMsg) => {
+                        return (
+                            <Toast>
+                                <Toast.Header>
+                                    <strong className="me-auto">{toastMsg}</strong>
+                                </Toast.Header>
+                            </Toast>
+                        )
+                    })
+                }
+            </ToastContainer>
         </div>
     )
 }

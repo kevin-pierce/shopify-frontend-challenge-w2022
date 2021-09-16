@@ -1,5 +1,9 @@
+$rocket-shiftX: 500px;
+
 .homepage-wrapper {
+    width:$rocket-shiftX;
     text-align: center;
+    margin-top: 40vh;
     .homepage-header {
         display:flex;
         justify-content: center;
@@ -8,5 +12,34 @@
             font-size: 37.5pt;
             margin:0;
         }
+
+        .animate-mode {
+            animation: ZoomOutRocket 1s ease-in-out ;
+        }
+    }
+    button {
+        margin-top:32px;
+    }
+
+    .fadeout-animation {
+        animation: FadeOut 1s ease-out;
+    }
+}
+
+@keyframes ZoomOutRocket {
+    0% {
+      transform: translate(0);
+    }
+    95%, 100% {
+        transform: translate(-($rocket-shiftX/2) + 32px, 20px) scale(calc(100/60));
+    }
+  }
+
+@keyframes FadeOut {
+    0% {
+        opacity:1;
+    }
+    50%, 100% {
+        opacity:0;
     }
 }

@@ -8,13 +8,13 @@ import "./App.scss"
 const App = () => {
   const [displayHomepage, setDisplayHomepage] = useState(true)
 
-  useEffect(() => {
-    const isHomepageVisited = window.localStorage.getItem('homepageVisited')
+  // useEffect(() => {
+  //   const isHomepageVisited = window.localStorage.getItem('homepageVisited')
 
-    if (isHomepageVisited != null) {
-      setDisplayHomepage(false)
-    }
-  }, [])
+  //   if (isHomepageVisited != null) {
+  //     setDisplayHomepage(false)
+  //   }
+  // }, [])
 
   const openSpacestagram = () => {
     window.localStorage.setItem('homepageVisited', true)
