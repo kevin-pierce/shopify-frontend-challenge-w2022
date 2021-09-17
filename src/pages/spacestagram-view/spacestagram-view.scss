@@ -1,28 +1,35 @@
 .spacestagram-view-wrapper {
     display:flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 20px;    
 
-    .loading-wrapper {
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
+    .spacestagram-header {
+        height:80px;
+        display: flex;
         align-items: center;
-        margin-top: 40vh;
-        .loader {
-            animation: MoveUpDown 1s ease-in-out infinite ;
-            margin-bottom: 24px;
+        justify-content: center;
+        z-index: 99;
+        position: sticky;
+        top: 0;
+        background-color: #FFF;
+    
+        h1 {
+            font-size: 37.5pt;
+            margin:0;
         }
     }
-    
 }
 
-@keyframes MoveUpDown {
-    0%, 100% {
-      transform: translateY(0);
+.toast {
+    background-color: none !important;
+    border: none !important;
+
+    .toast-header {
+        color: #135d7c !important;
+        background-color: #d2ebf5 !important;
+        border-color: #bce1f1;
     }
-    50% {
-        transform: translateY(-100px);
-        
-    }
-  }
+}
+
+
+

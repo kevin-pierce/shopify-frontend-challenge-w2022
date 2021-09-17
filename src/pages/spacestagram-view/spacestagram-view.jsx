@@ -2,16 +2,17 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import "./spacestagram-view.scss"
-import LoadingIcon from "../../assets/rocket-loader.svg"
+import RocketIcon from "../../assets/rocket-loader.svg"
+
 
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 import Loader from '../../components/loader/loader';
-import { Toast, ToastContainer } from "react-bootstrap"
+import { Toast, ToastContainer, Navbar, Container } from "react-bootstrap"
 
 const SpacestagramView = () => {
     const [imgMetaData, setMetaImgData] = useState([])
     const [hasLoaded, setHasLoaded] = useState(false)
-    const [toasts, setToasts] = useState([])
+    const [toastMsgs, setToastMsgs] = useState([])
 
     useEffect(() => {
         getEPICImgMetaData()
@@ -19,13 +20,14 @@ const SpacestagramView = () => {
 
     // Auto remove toast messages after 3 seconds
     useEffect(() => {
-        if (toasts.length > 0) {
+        if (toastMsgs.length > 0) {
             window.setTimeout(() => {
-                setToasts(toasts => (toasts.slice(1)))
+                setToastMsgs(toastMsgs => (toastMsgs.slice(1)))
             }, 3000)
         }
-    }, [toasts])
+    }, [toastMsgs])
 
+    // Makes request to NASA API
     const getEPICImgMetaData = async () => {
         await axios({
             method: 'get',
@@ -39,6 +41,7 @@ const SpacestagramView = () => {
         });;
     }
 
+    // Creates array of images with URLs
     const setImgsArr = (imageArr) => {
         let newImgArr = imageArr.map((imgData) => {
             let splitDate = imgData.date.split(' ')[0].split('-')
@@ -56,25 +59,33 @@ const SpacestagramView = () => {
         setHasLoaded(true)
     }
 
+    // Update the toasts array with the messages
     const onPostInteractionHandler = (message) => {
-        setToasts([...toasts, message])
+        setToastMsgs([...toastMsgs, message])
     }
 
     return (
         <div className="spacestagram-view-wrapper">
             {
-                hasLoaded && imgMetaData ? 
-                imgMetaData.map((img) => {
-                    return (
-                        <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
-                    )
-                }) 
+                hasLoaded && imgMetaData ? (
+                    <>
+                    <div className="spacestagram-header">
+                        <h1>SPACESTAGRAM</h1>
+                        <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
+                    </div>
+                    {imgMetaData.map((img) => {
+                        return (
+                            <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
+                        )
+                    })}
+                    </>
+                )
                 :
                 <Loader/>
             }
             <ToastContainer style={{position:"fixed", bottom:"50px", right:"50px"}}>
                 {
-                    toasts && toasts.map((toastMsg, idx) => {
+                    toastMsgs && toastMsgs.map((toastMsg, idx) => {
                         return (
                             <Toast key={idx}>
                                 <Toast.Header>
