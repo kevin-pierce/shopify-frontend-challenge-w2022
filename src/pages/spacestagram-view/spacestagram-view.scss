@@ -1,8 +1,4 @@
 .spacestagram-view-wrapper {
-    display:flex;
-    flex-direction: column;
-    gap: 20px;    
-
     .spacestagram-header {
         height:80px;
         display: flex;
@@ -12,11 +8,22 @@
         position: sticky;
         top: 0;
         background-color: #FFF;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        width: 100vw;
     
         h1 {
             font-size: 37.5pt;
             margin:0;
         }
+    }
+
+    .spacestagram-cards-holder {
+        padding-top: 24px;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px; 
     }
 }
 
@@ -28,6 +35,10 @@
         color: #135d7c !important;
         background-color: #d2ebf5 !important;
         border-color: #bce1f1;
+    }
+
+    .btn-close {
+        display:none;
     }
 }
 

@@ -31,9 +31,10 @@ const SpacestagramView = () => {
     const getEPICImgMetaData = async () => {
         await axios({
             method: 'get',
-            url: `https://epic.gsfc.nasa.gov/api/natural/images?api_key=${process.env.REACT_APP_NASA_KEY}`,
+            url: `https://api.nasa.gov/EPIC/api/natural/images?api_key=${process.env.REACT_APP_NASA_KEY}`,
         })
         .then((response) => {
+            console.log(response.data)
             setImgsArr(response.data)
         })
         .catch((error) => {
@@ -73,11 +74,15 @@ const SpacestagramView = () => {
                         <h1>SPACESTAGRAM</h1>
                         <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
                     </div>
-                    {imgMetaData.map((img) => {
-                        return (
-                            <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
-                        )
-                    })}
+                    <div className="spacestagram-cards-holder">
+
+                    
+                        {imgMetaData.map((img) => {
+                            return (
+                                <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
+                            )
+                        })}
+                    </div>
                     </>
                 )
                 :

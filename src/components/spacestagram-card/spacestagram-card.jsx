@@ -85,10 +85,8 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
                 
                 </Card.Body>
             </Card>
-            
         </div>
     )
-    
 }
 
 export default SpacestagramCard;
