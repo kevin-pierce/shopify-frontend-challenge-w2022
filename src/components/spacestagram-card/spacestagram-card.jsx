@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, Dropdown, Toast, ToastContainer } from 'react-bootstrap'
+import { Button, Card, Dropdown } from 'react-bootstrap'
+import InnerImageZoom from 'react-inner-image-zoom';
 
 // Icons
 import LinkIcon from "../../assets/link-icon.svg"
@@ -7,6 +8,7 @@ import LikedIcon from "../../assets/heart-full-icon.svg"
 import UnlikedIcon from "../../assets/heart-empty-icon.svg"
 
 import "./spacestagram-card.scss"
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 
 
 const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
@@ -47,7 +49,12 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
         <div className="spacestagram-card-wrapper">
             <Card>
                 <Card.Body>
-                <Card.Img variant="top" src={imageData.url}/>
+                <InnerImageZoom 
+                    src={imageData.url} 
+                    zoomSrc={imageData.url} 
+                    alt="Image from NASA's EPIC camera"
+                    zoomType="hover"
+                    />
                 <div className="interactions-row">
                     <Button onClick={handleLike} variant="none" className="like-btn">
                         {
