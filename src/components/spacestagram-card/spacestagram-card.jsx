@@ -54,26 +54,27 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
                     zoomSrc={imageData.url} 
                     alt="Image from NASA's EPIC camera"
                     zoomType="hover"
+                    zoomScale={1.2}
                     />
                 <div className="interactions-row">
-                    <Button onClick={handleLike} variant="none" className="like-btn">
+                    <Button aria-label="Like button" onClick={handleLike} variant="none" className="like-btn">
                         {
                             likedState == true ? 
-                            (<img src={LikedIcon}/>) 
+                            (<img alt="Liked image icon"src={LikedIcon}/>) 
                             : 
-                            (<img src={UnlikedIcon}/>)
+                            (<img alt="Unliked image icon" src={UnlikedIcon}/>)
                         }
                         
                     </Button>
                     <Dropdown>
-                        <Dropdown.Toggle variant="none" className="share-btn">
+                        <Dropdown.Toggle variant="none" aria-label="Share button" className="share-btn">
                             <img width="32" alt="Ei-share-apple" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/512px-Ei-share-apple.svg.png"></img>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={copyToClipboard}>
+                            <Dropdown.Item aria-label="Copy link" onClick={copyToClipboard}>
                                 <div className="share-dropdown-content">
                                     <div>
-                                        <img width="16" alt="link icon" src={LinkIcon}/>
+                                        <img width="16" alt="Link icon" src={LinkIcon}/>
                                         Copy link to Image
                                     </div>
                                 </div>

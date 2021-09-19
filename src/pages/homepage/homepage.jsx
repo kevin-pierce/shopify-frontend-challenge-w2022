@@ -13,7 +13,7 @@ const HomePage = ({openSpacestagram}) => {
                 <h1 className={animateShip ? "fadeout-animation" : ""}>SPACESTAGRAM</h1>
                 <img height="60" src={RocketIcon} alt="spacestagram main logo" className={animateShip}/>
             </div>
-            <Button className={animateShip ? "fadeout-animation" : ""} onClick={() => {
+            <Button aria-label="Open spacestagram" className={animateShip ? "fadeout-animation" : ""} onClick={() => {
                 setAnimateShip("animate-mode")
                 openSpacestagram()}}>Begin your journey</Button>
         </div>
