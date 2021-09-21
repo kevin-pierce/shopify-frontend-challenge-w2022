@@ -21,7 +21,7 @@ const ScrollButton = () => {
 
     return (
         <div className="scroll-button-wrapper">
-            <Button aria-label="Scroll to top"className={"scroll-button" + (visible ? " show" : "")} onClick={scrollToTop}>^</Button>
+            <Button aria-label="Scroll to top" className={"scroll-button" + (visible ? " show" : "")} onClick={scrollToTop}>^</Button>
         </div>
     )
 }

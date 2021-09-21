@@ -51,7 +51,7 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
                 <InnerImageZoom 
                     src={imageData.url} 
                     zoomSrc={imageData.url} 
-                    alt="Image from NASA's EPIC camera"
+                    alt="Photo of Earth taken by NASA's EPIC camera"
                     zoomType="hover"
                     zoomScale={1.2}
                     width="566"
@@ -61,9 +61,9 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
                     <Button aria-label="Like button" onClick={handleLike} variant="none" className="like-btn">
                         {
                             likedState == true ? 
-                            (<img alt="Liked image icon"src={LikedIcon}/>) 
+                            (<img alt="Liked post icon"src={LikedIcon}/>) 
                             : 
-                            (<img alt="Unliked image icon" src={UnlikedIcon}/>)
+                            (<img alt="Unliked post icon" src={UnlikedIcon}/>)
                         }
                         
                     </Button>
