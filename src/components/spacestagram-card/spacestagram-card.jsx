@@ -53,9 +53,9 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
                     zoomSrc={imageData.url} 
                     alt="Photo of Earth taken by NASA's EPIC camera"
                     zoomType="hover"
-                    zoomScale={1.2}
-                    width="566"
-                    height="566"
+                    zoomScale={1.25}
+                    width={566}
+                    height={566}
                     />
                 <div className="interactions-row">
                     <Button aria-label="Like button" onClick={handleLike} variant="none" className="like-btn">
