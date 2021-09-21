@@ -1,7 +1,9 @@
-$rocket-shiftX: 500px;
+@use "sass:math";
+$normalWidth: 500px;
+$mobileWidth: 350px;
 
 .homepage-wrapper {
-    width:$rocket-shiftX;
+    width:$normalWidth;
     text-align: center;
     margin-top: 40vh;
     .homepage-header {
@@ -31,9 +33,38 @@ $rocket-shiftX: 500px;
       transform: translate(0);
     }
     95%, 100% {
-        transform: translate(-($rocket-shiftX/2) + 32px, 20px) scale(calc(100/60));
+        transform: translate(-(math.div($normalWidth, 2)) + 32px, 20px) scale(calc(100/60));
     }
   }
+
+// Mobile homepage + animation
+@media (max-width: 768px) {
+    .homepage-wrapper { 
+        width:$mobileWidth;
+        .homepage-header {
+    
+            h1 {
+                font-size: 24.5pt;
+                line-height: 32px;
+            }
+
+            img {
+                height: 32px;
+                width: 32px;
+            }
+        }
+    }
+
+    @keyframes ZoomOutRocket {
+        0% {
+          transform: translate(0);
+        }
+        95%, 100% {
+            transform: translate(-(math.div($mobileWidth, 2)) + 26px, 34px) scale(calc(100/32));
+        }
+      }
+}
+  
 
 @keyframes FadeOut {
     0% {

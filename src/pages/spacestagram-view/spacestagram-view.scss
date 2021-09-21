@@ -1,17 +1,28 @@
 .spacestagram-view-wrapper {
     margin-bottom:24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     .spacestagram-header {
-        height:80px;
         display: flex;
         align-items: center;
         justify-content: center;
+        height:80px;
         z-index: 99;
-        gap:8px;
-        position: sticky;
+        position: fixed;
         top: 0;
         background-color: #FFF;
         border-bottom: 1px solid rgba(0,0,0,.125);
         width: 100vw;
+
+        .spacestagram-header-content {
+            display: inherit;
+            align-items: inherit;
+            justify-content: inherit;
+            gap:8px;
+            padding: 0 32px;
+        }
     
         h1 {
             font-size: 37.5pt;
@@ -20,7 +31,7 @@
     }
 
     .spacestagram-cards-holder {
-        padding-top: 24px;
+        padding-top: 104px;
         display: flex;
         align-items:center;
         justify-content: center;
@@ -28,19 +39,57 @@
         gap: 24px; 
     }
 }
+.toast-container {
+    position:fixed;
+    bottom:36px;
+    right:108px;
+    
+    .toast {
+        background-color: none !important;
+        border: none !important;
+    
+        .toast-header {
+            color: #135d7c !important;
+            background-color: #d2ebf5 !important;
+            border-color: #bce1f1;
+        }
+    
+        .btn-close {
+            display:none;
+        }
+    }
+}
 
-.toast {
-    background-color: none !important;
-    border: none !important;
 
-    .toast-header {
-        color: #135d7c !important;
-        background-color: #d2ebf5 !important;
-        border-color: #bce1f1;
+@media (max-width: 768px) {
+    .spacestagram-view-wrapper {
+        .spacestagram-header {
+            position: fixed;
+            top: 0;
+
+            h1 {
+                font-size: 24.5pt;
+                line-height: 32px;
+            }
+
+            img {
+                height: 32px;
+                width: 32px;
+            }
+        }
     }
 
-    .btn-close {
-        display:none;
+    .toast-container {
+        max-width:204px !important;
+        left:50%;
+        right:0;
+        margin-left:-102px;
+
+        .toast {
+            .toast-header {
+                justify-content: center !important;
+            }
+        }
     }
 }
 

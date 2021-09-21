@@ -16,7 +16,7 @@ const SpacestagramView = () => {
     const [hasLoaded, setHasLoaded] = useState(false)               // Loading state for initial batch of images
     const [isLoadingMore, setIsLoadingMore] = useState(false)       // Loading state for lazy loading images
     const [toastMsgs, setToastMsgs] = useState([])
-    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2)
+    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2)           // State to control date to fetch data from
 
     // Initial data load
     useEffect(() => {
@@ -98,11 +98,13 @@ const SpacestagramView = () => {
             {
                 hasLoaded && imgMetaData ? (
                     <>
-                        <div className="spacestagram-header" 
-                            onClick={() => window.scrollTo({top:0, behaviour:"smooth"})}
-                        >
-                            <h1>SPACESTAGRAM</h1>
-                            <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
+                        <div className="spacestagram-header" >
+                            <div className="spacestagram-header-content" 
+                                onClick={() => window.scrollTo({top:0, behaviour:"smooth"})}
+                            >
+                                <h1>SPACESTAGRAM</h1>
+                                <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
+                            </div>
                         </div>
                         <div className="spacestagram-cards-holder">
                             {imgMetaData.map((img) => {
@@ -122,7 +124,7 @@ const SpacestagramView = () => {
                     :
                     <></>
             }
-            <ToastContainer style={{position:"fixed", bottom:"36px", right:"108px"}}>
+            <ToastContainer>
                 {
                     toastMsgs && toastMsgs.map((toastMsg, idx) => {
                         return (

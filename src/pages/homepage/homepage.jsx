@@ -11,13 +11,12 @@ const HomePage = ({openSpacestagram}) => {
         <div className="homepage-wrapper">
             <div className="homepage-header">
                 <h1 className={animateShip ? "fadeout-animation" : ""}>SPACESTAGRAM</h1>
-                <img height="60" src={RocketIcon} alt="spacestagram main logo" className={animateShip}/>
+                <img height="60" width="60" src={RocketIcon} alt="spacestagram main logo" className={animateShip}/>
             </div>
             <Button aria-label="Open spacestagram" className={animateShip ? "fadeout-animation" : ""} onClick={() => {
                 setAnimateShip("animate-mode")
                 openSpacestagram()}}>Begin your journey</Button>
         </div>
-        
     )
 }
 

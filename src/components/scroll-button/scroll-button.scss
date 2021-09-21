@@ -19,7 +19,22 @@
         }
 
         img {
+            width:24px;
             padding: 12px 0;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .scroll-button-wrapper .scroll-button {
+        height: 32px;
+        width: 32px;
+        border-radius: 16px;
+        bottom: 38px;
+
+        img {
+            width:16px;
+            padding:8px 0;
         }
     }
 }

@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 40vh;
+    text-align: center;
 
     &.lazy-load {
         margin-top: 128px;
@@ -23,4 +24,4 @@
         transform: translateY(-100px);
         
     }
-  }
+}
