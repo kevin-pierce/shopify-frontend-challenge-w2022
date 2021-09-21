@@ -20,7 +20,6 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
 
         if (imgLikedState != null) {
             if (imgLikedState == "true") {
-                console.log(imgLikedState)
                 setLikedState(true)
             }
         }

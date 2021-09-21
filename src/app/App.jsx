@@ -1,6 +1,5 @@
 import HomePage from "../pages/homepage/homepage.jsx"
 import SpacestagramView from "../pages/spacestagram-view/spacestagram-view";
-import { Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 
 import "./App.scss"

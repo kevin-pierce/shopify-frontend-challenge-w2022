@@ -1,21 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import "./spacestagram-view.scss"
-import RocketIcon from "../../assets/rocket-loader.svg"
-
-
+// Components
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 import Loader from '../../components/loader/loader';
-import { Toast, ToastContainer, Navbar, Container } from "react-bootstrap"
+import { Toast, ToastContainer } from "react-bootstrap"
+
+// Assets + Styling
+import RocketIcon from "../../assets/rocket-loader.svg"
+import "./spacestagram-view.scss"
 
 const SpacestagramView = () => {
     const [imgMetaData, setMetaImgData] = useState([])
-    const [hasLoaded, setHasLoaded] = useState(false)
+    const [hasLoaded, setHasLoaded] = useState(false)               // Loading state for initial batch of images
+    const [isLoadingMore, setIsLoadingMore] = useState(false)       // Loading state for lazy loading images
     const [toastMsgs, setToastMsgs] = useState([])
+    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2)
 
-    useEffect(() => {
+    // Initial data load
+    useEffect(() => {    
         getEPICImgMetaData()
+        
+        // Add scroll event listener to trigger lazy loading for images from older dates
+        window.addEventListener('scroll', () => {
+            if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) !== document.documentElement.offsetHeight ||isLoadingMore)
+                return;
+            setIsLoadingMore(true);
+        })
     }, [])
 
     // Auto remove toast messages after 3 seconds
@@ -27,19 +38,29 @@ const SpacestagramView = () => {
         }
     }, [toastMsgs])
 
+    // Load more upon scrolling down 
+    useEffect(() => {
+        if (isLoadingMore) {
+            getEPICImgMetaData()
+        }
+    }, [isLoadingMore])
+
     // Makes request to NASA API
     const getEPICImgMetaData = async () => {
+        let tempDate = new Date()
+        tempDate.setDate(tempDate.getDate() - daysAgoToLoad)
+        let queryDate = String(tempDate.toISOString().slice(0, 10))
+
         await axios({
             method: 'get',
-            url: `https://api.nasa.gov/EPIC/api/natural/images?api_key=${process.env.REACT_APP_NASA_KEY}`,
+            url: `https://api.nasa.gov/EPIC/api/natural/date/${queryDate}?api_key=${process.env.REACT_APP_NASA_KEY}`,
         })
         .then((response) => {
-            console.log(response.data)
             setImgsArr(response.data)
         })
         .catch((error) => {
             console.log(error);
-        });;
+        });
     }
 
     // Creates array of images with URLs
@@ -51,13 +72,14 @@ const SpacestagramView = () => {
             let day = splitDate[2]
 
             let imgUrl = `https://epic.gsfc.nasa.gov/archive/natural/${year}/${month}/${day}/jpg/${imgData.image}.jpg`
-            console.log(imgUrl)
 
             imgData["url"] = imgUrl
             return imgData
         })
-        setMetaImgData(newImgArr)
-        setHasLoaded(true)
+        setMetaImgData(state => [...state, ...newImgArr])
+        setHasLoaded(true)                                      // Initial load state
+        setDaysAgoToLoad(daysAgoToLoad + 1)                     // Increase gap in days
+        setIsLoadingMore(false)                                 // Lazy loading is set to false
     }
 
     // Update the toasts array with the messages
