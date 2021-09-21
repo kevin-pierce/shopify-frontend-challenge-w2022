@@ -1,23 +1,13 @@
 import HomePage from "../pages/homepage/homepage.jsx"
 import SpacestagramView from "../pages/spacestagram-view/spacestagram-view";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import "./App.scss"
 
 const App = () => {
   const [displayHomepage, setDisplayHomepage] = useState(true)
 
-  // useEffect(() => {
-  //   const isHomepageVisited = window.localStorage.getItem('homepageVisited')
-
-  //   if (isHomepageVisited != null) {
-  //     setDisplayHomepage(false)
-  //   }
-  // }, [])
-
   const openSpacestagram = () => {
-    window.localStorage.setItem('homepageVisited', true)
-
     window.setTimeout(() => {
       setDisplayHomepage(false)
     }, 1000)

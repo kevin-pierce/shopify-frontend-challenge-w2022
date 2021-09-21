@@ -14,7 +14,7 @@ $rocket-shiftX: 500px;
         }
 
         .animate-mode {
-            animation: ZoomOutRocket 1s ease-in-out ;
+            animation: ZoomOutRocket 1.05s ease-in-out ;
         }
     }
     button {
@@ -22,7 +22,7 @@ $rocket-shiftX: 500px;
     }
 
     .fadeout-animation {
-        animation: FadeOut 1s ease-out;
+        animation: FadeOut 1.05s ease-out;
     }
 }
 
