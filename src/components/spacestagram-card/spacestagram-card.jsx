@@ -16,23 +16,30 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
 
     // Load liked images from localStorage
     useEffect(() => {
-        const imgLikedState = window.localStorage.getItem(`${imageData.identifier}-liked-state`)
+        const allLikedPosts = JSON.parse(window.localStorage.getItem("likedPosts"))
+        let imgLikedState = allLikedPosts.find(post => post.identifier == imageData.identifier)
 
-        if (imgLikedState != null) {
-            if (imgLikedState == "true") {
-                setLikedState(true)
-            }
+        if (imgLikedState && imgLikedState.liked == true) {
+            setLikedState(true)
         }
     }, [])
 
     // onClick handler for likes (Only stores liked images)
     const handleLike = () => {
+
+        // Liking an image (add to local storage arr)
         if (!likedState) {
-            window.localStorage.setItem(`${imageData.identifier}-liked-state`, !likedState)
+            let allLikedPosts = JSON.parse(window.localStorage.getItem("likedPosts"))
+            allLikedPosts.push({identifier: imageData.identifier, liked: !likedState})
+            window.localStorage.setItem("likedPosts", JSON.stringify(allLikedPosts))
             onPostInteractionHandler("Liked post")
         }
+
+        // Unliking an image (remove from local storage arr)
         else {
-            window.localStorage.removeItem(`${imageData.identifier}-liked-state`)
+            let allLikedPosts = JSON.parse(window.localStorage.getItem("likedPosts"))
+            allLikedPosts = allLikedPosts.filter(post => post.identifier != imageData.identifier)
+            window.localStorage.setItem("likedPosts", JSON.stringify(allLikedPosts))
             onPostInteractionHandler("Unliked post")
         }
         setLikedState(!likedState)
@@ -48,50 +55,46 @@ const SpacestagramCard = ({imageData, onPostInteractionHandler}) => {
         <div className="spacestagram-card-wrapper">
             <Card>
                 <Card.Body>
-                <InnerImageZoom 
-                    src={imageData.url} 
-                    zoomSrc={imageData.url} 
-                    alt="Photo of Earth taken by NASA's EPIC camera"
-                    zoomType="hover"
-                    zoomScale={1.25}
-                    width={566}
-                    height={566}
+                    <InnerImageZoom 
+                        src={imageData.url} 
+                        zoomSrc={imageData.url} 
+                        alt="Photo of Earth taken by NASA's EPIC camera"
+                        zoomType="hover"
+                        zoomScale={1.25}
+                        width={566}
+                        height={566}
                     />
-                <div className="interactions-row">
-                    <Button aria-label="Like button" onClick={handleLike} variant="none" className="like-btn">
-                        {
-                            likedState == true ? 
-                            (<img alt="Liked post icon"src={LikedIcon}/>) 
-                            : 
-                            (<img alt="Unliked post icon" src={UnlikedIcon}/>)
-                        }
-                        
-                    </Button>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="none" aria-label="Share button" className="share-btn">
-                            <img width="32" alt="Ei-share-apple" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/512px-Ei-share-apple.svg.png"></img>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item aria-label="Copy link" onClick={copyToClipboard}>
-                                <div className="share-dropdown-content">
-                                    <div>
-                                        <img width="16" alt="Link icon" src={LinkIcon}/>
-                                        Copy link to Image
+                    <div className="interactions-row">
+                        <Button aria-label="Like button" onClick={handleLike} variant="none" className="like-btn">
+                            {
+                                likedState == true ? 
+                                (<img alt="Liked post icon"src={LikedIcon}/>) 
+                                : 
+                                (<img alt="Unliked post icon" src={UnlikedIcon}/>)
+                            }  
+                        </Button>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="none" aria-label="Share button" className="share-btn">
+                                <img width="32" alt="Ei-share-apple" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/512px-Ei-share-apple.svg.png"></img>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item aria-label="Copy link" onClick={copyToClipboard}>
+                                    <div className="share-dropdown-content">
+                                        <div>
+                                            <img width="16" alt="Link icon" src={LinkIcon}/>
+                                            Copy link to Image
+                                        </div>
                                     </div>
-                                </div>
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
-                
-
-                <Card.Text className="caption">
-                    {imageData.caption}
-                </Card.Text>
-                <Card.Text className="date">
-                    {imageData.date.split(' ')[0]}
-                </Card.Text>
-                
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <Card.Text className="caption">
+                        {imageData.caption}
+                    </Card.Text>
+                    <Card.Text className="date">
+                        {imageData.date.split(' ')[0]}
+                    </Card.Text>
                 </Card.Body>
             </Card>
         </div>

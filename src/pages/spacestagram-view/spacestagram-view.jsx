@@ -19,7 +19,12 @@ const SpacestagramView = () => {
     const [daysAgoToLoad, setDaysAgoToLoad] = useState(2)
 
     // Initial data load
-    useEffect(() => {    
+    useEffect(() => {
+        const curStoredLikes = JSON.parse(window.localStorage.getItem("likedPosts"))    
+        if (!curStoredLikes) {
+            window.localStorage.setItem("likedPosts", JSON.stringify([]))
+        }
+        
         getEPICImgMetaData()
         
         // Add scroll event listener to trigger lazy loading for images from older dates
@@ -93,19 +98,19 @@ const SpacestagramView = () => {
             {
                 hasLoaded && imgMetaData ? (
                     <>
-                    <div className="spacestagram-header">
-                        <h1>SPACESTAGRAM</h1>
-                        <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
-                    </div>
-                    <div className="spacestagram-cards-holder">
-
-                    
-                        {imgMetaData.map((img) => {
-                            return (
-                                <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
-                            )
-                        })}
-                    </div>
+                        <div className="spacestagram-header" 
+                            onClick={() => window.scrollTo({top:0, behaviour:"smooth"})}
+                        >
+                            <h1>SPACESTAGRAM</h1>
+                            <img height="60" src={RocketIcon} alt="spacestagram main logo"/>
+                        </div>
+                        <div className="spacestagram-cards-holder">
+                            {imgMetaData.map((img) => {
+                                return (
+                                    <SpacestagramCard onPostInteractionHandler={onPostInteractionHandler} key={img.identifier} imageData={img}/>
+                                )
+                            })}
+                        </div>
                     </>
                 )
                 :

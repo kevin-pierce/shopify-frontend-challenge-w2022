@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './scroll-button.scss'
 import { Button } from 'react-bootstrap'
+import ScrollIcon from '../../assets/arrow-up-icon.svg'
+
+
+const scrollToTop = () => {
+  window.scrollTo({top:0, behaviour:"smooth"})
+}
 
 const ScrollButton = () => {
     const [visible, setVisible] = useState(false)
@@ -15,13 +21,11 @@ const ScrollButton = () => {
           });
     }, [])
 
-    const scrollToTop = () => {
-        window.scrollTo({top:0, behaviour:"smooth"})
-    }
-
     return (
         <div className="scroll-button-wrapper">
-            <Button aria-label="Scroll to top" className={"scroll-button" + (visible ? " show" : "")} onClick={scrollToTop}>^</Button>
+            <Button aria-label="Scroll to top" className={"scroll-button" + (visible ? " show" : "")} onClick={scrollToTop}>
+              <img alt="Up arrow" src={ScrollIcon}/>
+            </Button>
         </div>
     )
 }
