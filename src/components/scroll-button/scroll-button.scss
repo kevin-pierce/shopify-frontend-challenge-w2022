@@ -1,0 +1,22 @@
+.scroll-button-wrapper {
+
+    .scroll-button {
+        text-align: center;
+        font-weight: 700;
+        font-size: 32px;
+        padding:0;
+        height:48px;
+        width:48px;
+        border-radius: 24px;
+        background-color: black;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: opacity 0.25s linear;
+        opacity: 0;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+}

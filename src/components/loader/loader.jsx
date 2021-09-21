@@ -9,13 +9,13 @@ const LoadingMessages = [
     "Kindly asking NASA for images"
 ]
 
-const Loader = () => {
+const Loader = ({showMsg = true}) => {
     const randMsg = LoadingMessages[Math.floor(Math.random() * LoadingMessages.length)]
 
     return (
-        <div className="loading-wrapper">
+        <div className={"loading-wrapper" + (showMsg ? "" : " lazy-load")}>
             <img className="loader" src={LoadingIcon} height="100" alt="Loading Icon" />
-            <h4>{randMsg}</h4>
+            <h4>{showMsg ? randMsg : ""}</h4>
         </div>
     )
 }

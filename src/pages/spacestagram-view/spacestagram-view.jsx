@@ -5,6 +5,7 @@ import axios from 'axios';
 import SpacestagramCard from '../../components/spacestagram-card/spacestagram-card';
 import Loader from '../../components/loader/loader';
 import { Toast, ToastContainer } from "react-bootstrap"
+import ScrollButton from '../../components/scroll-button/scroll-button';
 
 // Assets + Styling
 import RocketIcon from "../../assets/rocket-loader.svg"
@@ -63,7 +64,7 @@ const SpacestagramView = () => {
         });
     }
 
-    // Creates array of images with URLs
+    // Creates array of images with src URLs
     const setImgsArr = (imageArr) => {
         let newImgArr = imageArr.map((imgData) => {
             let splitDate = imgData.date.split(' ')[0].split('-')
@@ -110,7 +111,13 @@ const SpacestagramView = () => {
                 :
                 <Loader/>
             }
-            <ToastContainer style={{position:"fixed", bottom:"50px", right:"50px"}}>
+            {
+                isLoadingMore ? 
+                    <Loader showMsg={false}/>
+                    :
+                    <></>
+            }
+            <ToastContainer style={{position:"fixed", bottom:"36px", right:"108px"}}>
                 {
                     toastMsgs && toastMsgs.map((toastMsg, idx) => {
                         return (
@@ -123,6 +130,7 @@ const SpacestagramView = () => {
                     })
                 }
             </ToastContainer>
+            <ScrollButton/>
         </div>
     )
 }
