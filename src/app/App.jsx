@@ -7,6 +7,7 @@ import "./App.scss"
 const App = () => {
   const [displayHomepage, setDisplayHomepage] = useState(true)
 
+  // Changes state after 1s delay, allowing for transition animation
   const openSpacestagram = () => {
     window.setTimeout(() => {
       setDisplayHomepage(false)

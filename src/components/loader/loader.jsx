@@ -10,6 +10,8 @@ const LoadingMessages = [
 ]
 
 const Loader = ({showMsg = true}) => {
+
+    // Generate random message to display while loading data
     const randMsg = LoadingMessages[Math.floor(Math.random() * LoadingMessages.length)]
 
     return (

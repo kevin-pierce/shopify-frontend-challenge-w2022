@@ -21,8 +21,6 @@
             align-items: inherit;
             justify-content: inherit;
             padding: 0 32px;
-
-
         }
     
         h1 {
@@ -40,15 +38,22 @@
         flex-direction: column;
     }
 }
+
 .toast-container {
     position:fixed;
     bottom:36px;
     right:108px;
+    min-height:10px;
     
     .toast {
         background-color: none !important;
         border: none !important;
-    
+        opacity:1;
+        visibility:visible;
+        height:0px;
+        margin-bottom:12px !important;
+        animation: FadeToasts 3s forwards ease-in-out;
+        
         .toast-header {
             color: #135d7c !important;
             background-color: #d2ebf5 !important;
@@ -61,6 +66,30 @@
     }
 }
 
+@keyframes FadeToasts {
+    
+    0% {  
+        visibility:hidden;
+        opacity:0;
+        height: 0px;
+    }
+
+    8%, 92% {
+        height:38px;
+        visibility:visible;
+        opacity:1;
+    }
+    
+    99% {
+        visibility: hidden;
+        opacity:0;
+    }
+
+    100% {
+        opacity:0;
+        display:none;
+    }
+}
 
 @media (max-width: 768px) {
     .spacestagram-view-wrapper {

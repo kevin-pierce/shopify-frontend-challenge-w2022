@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 
 // Components
@@ -35,12 +35,11 @@ const SpacestagramView = () => {
         })
     }, [])
 
-    // Auto remove toast messages after 3 seconds
+    // Clear all toast messages every 5 seconds
     useEffect(() => {
-        if (toastMsgs.length > 0) {
-            window.setTimeout(() => {
-                setToastMsgs(toastMsgs => (toastMsgs.slice(1)))
-            }, 50000000)
+        if (toastMsgs.length > 0) { 
+            const timer = window.setTimeout(() => setToastMsgs([]), 5000)
+            return () => clearTimeout(timer)
         }
     }, [toastMsgs])
 
