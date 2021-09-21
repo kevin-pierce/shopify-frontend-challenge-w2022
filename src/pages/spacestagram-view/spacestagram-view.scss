@@ -20,13 +20,15 @@
             display: inherit;
             align-items: inherit;
             justify-content: inherit;
-            gap:8px;
             padding: 0 32px;
+
+
         }
     
         h1 {
             font-size: 37.5pt;
             margin:0;
+            margin-right:8px;
         }
     }
 
@@ -36,7 +38,6 @@
         align-items:center;
         justify-content: center;
         flex-direction: column;
-        gap: 24px; 
     }
 }
 .toast-container {

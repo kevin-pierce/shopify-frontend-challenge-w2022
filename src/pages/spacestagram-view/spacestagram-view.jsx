@@ -40,7 +40,7 @@ const SpacestagramView = () => {
         if (toastMsgs.length > 0) {
             window.setTimeout(() => {
                 setToastMsgs(toastMsgs => (toastMsgs.slice(1)))
-            }, 3000)
+            }, 50000000)
         }
     }, [toastMsgs])
 
