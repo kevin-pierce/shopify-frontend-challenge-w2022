@@ -16,7 +16,7 @@ const SpacestagramView = () => {
     const [hasLoaded, setHasLoaded] = useState(false)               // Loading state for initial batch of images
     const [isLoadingMore, setIsLoadingMore] = useState(false)       // Loading state for lazy loading images
     const [toastMsgs, setToastMsgs] = useState([])
-    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2.5)           // State to control date to fetch data from
+    const daysAgoToLoad = useRef(2)                                 // Ref for num days difference in between today and request date
 
     // Initial data load
     useEffect(() => {
@@ -53,7 +53,7 @@ const SpacestagramView = () => {
     // Makes request to NASA API
     const getEPICImgMetaData = async () => {
         let tempDate = new Date()
-        tempDate.setDate(tempDate.getDate() - daysAgoToLoad)
+        tempDate.setDate(tempDate.getDate() - daysAgoToLoad.current)
         let queryDate = String(tempDate.toISOString().slice(0, 10))
 
         await axios({
@@ -61,11 +61,23 @@ const SpacestagramView = () => {
             url: `https://api.nasa.gov/EPIC/api/natural/date/${queryDate}?api_key=${process.env.REACT_APP_NASA_KEY}`,
         })
         .then((response) => {
-            setImgsArr(response.data)
+            requestSuccessHandler(response);
         })
         .catch((error) => {
             console.log(error);
         });
+    }
+
+    const requestSuccessHandler = (response) => {
+        // Occassionally, the NASA EPIC API may return an empty [] (because we are requesting images for which no
+        // data exists - this accounts for the case where we must re-initiate the request and go one date earlier
+        if (response.data?.length == 0) {
+            daysAgoToLoad.current++
+            getEPICImgMetaData()
+        }
+        else {
+            setImgsArr(response.data)
+        }
     }
 
     // Creates array of images with src URLs
@@ -83,7 +95,7 @@ const SpacestagramView = () => {
         })
         setMetaImgData(state => [...state, ...newImgArr])
         setHasLoaded(true)                                      // Initial load state
-        setDaysAgoToLoad(daysAgoToLoad + 1)                     // Increase gap in days
+        daysAgoToLoad.current++                                 // Increase gap in days
         setIsLoadingMore(false)                                 // Lazy loading is set to false
     }
 
