@@ -16,7 +16,7 @@ const SpacestagramView = () => {
     const [hasLoaded, setHasLoaded] = useState(false)               // Loading state for initial batch of images
     const [isLoadingMore, setIsLoadingMore] = useState(false)       // Loading state for lazy loading images
     const [toastMsgs, setToastMsgs] = useState([])
-    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2)           // State to control date to fetch data from
+    const [daysAgoToLoad, setDaysAgoToLoad] = useState(2.5)           // State to control date to fetch data from
 
     // Initial data load
     useEffect(() => {
